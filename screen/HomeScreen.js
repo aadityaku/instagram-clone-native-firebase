@@ -4,16 +4,21 @@ import HomeScreenHeader from '../components/HomeScreenHeader';
 import Strories from '../components/Stories';
 
 import PostScreen from '../components/PostScreen';
+import BottomIcons from '../components/BottomIcons';
+import NewPost from '../components/post/NewPost';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <View style={{flex:1}}>
       
-       <HomeScreenHeader/>
+       <HomeScreenHeader navigation={navigation}/>
        <ScrollView >
         <Strories/>
-        <PostScreen/>
-       </ScrollView>
+        <PostScreen/> 
+        
+        </ScrollView>
+       <BottomIcons/> 
+       
     </View>
   )
 }

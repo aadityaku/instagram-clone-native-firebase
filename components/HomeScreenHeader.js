@@ -6,7 +6,7 @@ import AntDesign from "react-native-vector-icons/AntDesign"
 import MaterialIcons from "react-native-vector-icons/MaterialIcons"
 
 const image = require("../image/logo2.png")
-const HomeScreenHeader = () => {
+const HomeScreenHeader = ({navigation}) => {
   return(
     <View style={{alignItems:"center",flexDirection:"row",height:60, paddingHorizontal:13,backgroundColor:"black",justifyContent:"space-between"}}> 
         <View style={{space:2,flexDirection:"row"}}>
@@ -15,9 +15,9 @@ const HomeScreenHeader = () => {
         </View>
       
         <View style={{flexDirection:"row",justifyContent:"space-between",width:80}} >
-            <View>
+            <TouchableOpacity onPress={() => navigation.push("newpost")}>
                  <Feather name='plus-square' size={27} color="white" />
-            </View>
+            </TouchableOpacity>
             <View style={{marginRight:6}}>
               <Feather name='send' size={27} color="white" />
                  <Text style={{position:'absolute',fontWeight:"700",color:'white',backgroundColor:'red',borderRadius:50,paddingHorizontal:4,paddingVertical:0,top:-15,right:-6}} >1</Text>
