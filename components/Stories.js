@@ -4,7 +4,7 @@ import { Divider } from "@rneui/themed";
 import peoplsData from "../data/peopls";
 const Strories = () =>{
   return(
-    <View>
+    <View style={{backgroundColor:"black"}}>
        <Divider/>
        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop:2}}>
              {

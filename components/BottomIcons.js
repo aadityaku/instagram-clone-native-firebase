@@ -40,7 +40,7 @@ const BottomIcons = () =>{
         </TouchableOpacity>
      )
      return(
-        <View>
+        <View style={{backgroundColor:"black"}}>
             <Divider/>
             <View style={{justifyContent:"space-around",flexDirection:"row",height:69,width:"100%",marginTop:5}}>
                 {

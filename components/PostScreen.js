@@ -32,7 +32,7 @@ const PostHeader = (props) => {
 }
 const PostData = ({data}) =>{
      return(
-        <View>
+        <View style={{backgroundColor:"black"}}>
           {
             data.map((value,index)=>(
                  <View key={index}>
