@@ -1,17 +1,32 @@
-import { Button, Pressable, StyleSheet, Text, TextInput, View,Image, SafeAreaView, TouchableOpacity } from 'react-native'
+import { Button, Pressable, StyleSheet, Text, TextInput, View,Image, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
 import React, { useState } from 'react'
 import LoginHeader from './LoginHeader'
 import { Divider } from '@rneui/themed'
 import FontAwesome5Brands from "react-native-vector-icons/FontAwesome5Pro"
 import * as Yup from "yup";
 import { Formik } from 'formik'
+import auth from "@react-native-firebase/auth";
 const LoginForm = ({navigation}) => {
     
-
+    
     const LoginFormSchema = Yup.object().shape({
         email:Yup.string().email().required("an emil is required"),
         password:Yup.string().required().min(6,"your password must be >= 6 length")
     })
+    const onLogin = (email,password) =>{
+         auth()
+            .signInWithEmailAndPassword(email,password)
+            .then(()=>{
+                console.log("user account is created   & signed in");
+            })
+            .catch(error => {
+                Alert.alert("Something went to wrong",`${error}`,[
+                    {text:"ok",onPress:console.log("ok")},
+                    {text:"Singup",onPress:navigation.navigate("singupform")}
+
+                ])
+            })
+    }
     const initialValue = {
         email:"",
         password:""
@@ -27,7 +42,7 @@ const LoginForm = ({navigation}) => {
        <Formik
        initialValues={initialValue}
        validationSchema={LoginFormSchema}
-       onSubmit={(values) => navigation.navigate("home")}
+       onSubmit={(values) => onLogin(values.email,values.password)}
        validateOnMount={true}
        >
        {

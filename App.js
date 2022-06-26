@@ -1,14 +1,14 @@
-import { View, Text,SafeAreaView ,StyleSheet} from 'react-native'
+import {SafeAreaView ,StyleSheet} from 'react-native'
 import React from 'react'
-import HomeScreen from './screen/HomeScreen'
-import NewPost from './screen/NewPostScreen'
-import Navigation from './screen/Navigation'
+
+import AuthScreen from './screen/AuthScreen'
 
 
 const App = () => {
+  
   return (
      <SafeAreaView  style={styles.mainContainer}>
-        <Navigation/>
+       <AuthScreen/>
      </SafeAreaView>
      
    

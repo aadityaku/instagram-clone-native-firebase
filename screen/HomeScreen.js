@@ -17,8 +17,8 @@ const HomeScreen = ({navigation}) => {
         <PostScreen/> 
         
         </ScrollView>
-       <BottomIcons/> 
-       
+        
+        <BottomIcons navigation={navigation} name={"home"}/>
     </View>
   )
 }

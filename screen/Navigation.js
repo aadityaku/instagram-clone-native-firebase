@@ -5,16 +5,26 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import HomeScreen from './HomeScreen'
 import NewPost from './NewPostScreen'
-import LoginScreen from './LoginScreen';
+import SearchScreen from './SearchScreen';
+import ReelsScreen from './ReelsScreen';
+import LikesScreen from './LikesScreen';
+import ProfileScreen from './ProfileScreen';
+import BottomIcons from '../components/BottomIcons';
+
 const Stack = createStackNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer>
         <Stack.Navigator>
-            <Stack.Screen name="login" component={LoginScreen} options={{headerShown: false}} />
+            
             <Stack.Screen name="home" component={HomeScreen} options={{headerShown: false}} />
             <Stack.Screen name="newpost" component={NewPost} options={{headerShown: false}} />
+            <Stack.Screen name="search" component={SearchScreen} options={{headerShown: false}} />
+            <Stack.Screen name="reels" component={ReelsScreen} options={{headerShown: false}} />
+            <Stack.Screen name="like" component={LikesScreen} options={{headerShown: false}} />
+            <Stack.Screen name="profile" component={ProfileScreen} options={{headerShown: false}} />
         </Stack.Navigator>
+        
     </NavigationContainer>
   )
 }

@@ -30,11 +30,12 @@ const Bicons = [
     },
 ];
 
-const BottomIcons = () =>{
-    const[active,setActive] = useState("home");
-
+const BottomIcons = ({navigation,name}) =>{
+    const[active,setActive] = useState(name);
+    
      const Icon = ({icons}) =>(
-        <TouchableOpacity onPress={() => setActive(icons.name)}>
+        
+        <TouchableOpacity onPress={() => navigation.navigate(icons.name)}>
             <Image source={{ uri :(active === icons.name?icons.activeUrl:icons.inActiveUrl)}}  style={(active === "profile" && active === icons.name)?styles.profile:styles.image} />
             
         </TouchableOpacity>
@@ -46,7 +47,7 @@ const BottomIcons = () =>{
                 {
                     Bicons.map((value,index)=>(
 
-                        <Icon icons={value} key={index}/>
+                        <Icon icons={value} key={index} navigation={navigation}/>
                     ))
                 }
             </View>
