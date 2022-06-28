@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState,useEffect } from "react"
 import {View,Text,Image, ScrollView, TouchableOpacity} from "react-native";
 import { Divider } from "@rneui/themed";
 import peoplsData from "../data/peopls";
@@ -8,6 +8,8 @@ import Feather from "react-native-vector-icons/Feather"
 import Entypo from "react-native-vector-icons/Entypo"
 import Icons from "../data/Icons";
 import Post from "../data/post";
+import auth from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
 const PostHeader = (props) => {
     return(
         <View>
@@ -38,10 +40,12 @@ const PostData = ({data}) =>{
                  <View key={index}>
                     <PostHeader key={index} name={value.usersName} img={value.profileImg}/>
                         <Image source={{uri: value.postImg}} style={{height:450,width:"100%"}}/>
-                    <PostBottom bottomdata={Icons}/>
-                    {
-                       !!value.like && <PostLike like={value.like}/>
-                    }
+                    <PostBottom bottomdata={Icons} post={value}/>
+                    
+                    
+                        <PostLike  post={value}/>
+                      
+                    
                     <PostCaption caption={value.caption} name={value.usersName}/>
                     <PostComment comment={value.comments}/>
                     <Divider/>
@@ -83,30 +87,50 @@ const PostComment = ({comment}) =>{
   )
 }
 
-const PostLike = ({like}) =>{
+const PostLike = ({post}) =>{
          return(
           <View  style={{flexDirection:"row",alignItems:"center",marginLeft:10}}>
-            <Text style={{color:"white",textAlign:"center"}}>{like}{"  "}{(like<2) ?"like":"likes"}</Text>
+            <Text style={{color:"white",textAlign:"center"}}>{post.likes_by_users.length}{"  "}{(post.likes_by_users.length<2) ?"like":"likes"}</Text>
             
           </View>
          )
 }
-const PostBottom = ({bottomdata}) => {
-    const [like,setLike] = useState(false);
+const PostBottom = ({bottomdata,post}) => {
+    
+    const currentLikeStatus = !post.likes_by_users.includes(
+      auth().currentUser.email
+    )
+    const handleLike = post =>{
+      firestore()
+      .collection('users')
+      .doc(post.email)
+      .collection("post")
+      .doc(post.id)
+      .update({
+          likes_by_users: currentLikeStatus ? 
+          firestore.FieldValue.arrayUnion(
+              auth().currentUser.email)
+              : 
+              firestore.FieldValue.arrayRemove(
+                  auth().currentUser.email)   
+      }).then(console.log(currentLikeStatus)).catch(error => {
+          console.log(error)
+      })
+
+      
+  }
+
     return(
         
         <View style={{justifyContent:"space-between",height:50,flexDirection:"row",alignItems:"center"}}>
            <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-around",width:145}}>
-             {
-                !like && <TouchableOpacity onPress={() => setLike(true)}>
-                     <Image  source={{uri: bottomdata[0].IconUrl}} style={{height:27,width:26}}/>
+             
+                <TouchableOpacity onPress={() => handleLike(post)}>
+                     <Image  source={{uri: (currentLikeStatus)?bottomdata[0].IconUrl:bottomdata[0].LikedUrl}} style={{height:27,width:26}}/>
                 </TouchableOpacity>
-             }
-             {
-                like && <TouchableOpacity onPress={() => setLike(false)}>
-                <Image  source={{uri: bottomdata[0].LikedUrl}} style={{height:27,width:26}}/>
-                </TouchableOpacity>
-             }
+             
+
+            
              <Image  source={{uri: bottomdata[1].IconUrl}} style={{height:25,width:25}}/>
              <Image  source={{uri: bottomdata[2].IconUrl}} style={{height:28,width:27}}/>
              
@@ -120,15 +144,8 @@ const PostBottom = ({bottomdata}) => {
        
     )
 }
-const PostScreen = () =>{
-    return(
-        <>
-            <PostData data={Post}/>
-            
-        </>
-    )
-}
-export default PostScreen;
+
+export default PostData;
 const styles=StyleSheet.create({
     image:{
       height:35,

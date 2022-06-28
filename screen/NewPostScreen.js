@@ -69,11 +69,13 @@ const NewPostFormik = ({navigation}) =>{
             postImg:imgUrl,
             caption:caption,
             usersName:isCurrentLogged.fullname,
-            postImg:isCurrentLogged.dp,
-            like:0,
+            profileImg:isCurrentLogged.dp,
+            
             comments:[],
             likes_by_users:[],
             owner_uid:auth().currentUser.uid,
+            created_at:firestore.FieldValue.serverTimestamp(),
+            email:auth().currentUser.email,
         }
         console.log(dataForPost);
         const user = await firestore().collection('users').doc(auth().currentUser.email).collection('post').add(dataForPost).then(() => navigation.goBack())
