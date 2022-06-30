@@ -23,7 +23,7 @@ const HomeScreen = ({navigation}) => {
        <ScrollView >
         <Strories />
 
-        <PostData data={posts}/> 
+        <PostData data={posts} navigation={navigation}/> 
         
         </ScrollView>
         

@@ -10,12 +10,13 @@ import ReelsScreen from './ReelsScreen';
 import LikesScreen from './LikesScreen';
 import ProfileScreen from './ProfileScreen';
 import BottomIcons from '../components/BottomIcons';
+import CommentScreen from './CommentScreen';
 
 const Stack = createStackNavigator();
 const Navigation = () => {
   return (
     <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator >
             
             <Stack.Screen name="home" component={HomeScreen} options={{headerShown: false}} />
             <Stack.Screen name="newpost" component={NewPost} options={{headerShown: false}} />
@@ -23,6 +24,7 @@ const Navigation = () => {
             <Stack.Screen name="reels" component={ReelsScreen} options={{headerShown: false}} />
             <Stack.Screen name="like" component={LikesScreen} options={{headerShown: false}} />
             <Stack.Screen name="profile" component={ProfileScreen} options={{headerShown: false}} />
+            <Stack.Screen name="comments" component={CommentScreen} options={{headerShown: false}} />
         </Stack.Navigator>
         
     </NavigationContainer>

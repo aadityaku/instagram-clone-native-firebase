@@ -43,7 +43,7 @@ const ProfileScreen = ({navigation}) => {
       tabBarIcon : ({color})=> <Image source={{uri : photos}} style={{height:25,width:25}}/>
       }}  />
       <Tab.Screen component={ProfilesReels} name="profilesreels" options={{tabBarShowLabel:false,
-      tabBarIcon : ({color})=> <AntDesign name="table" size={20}/>
+      tabBarIcon : ({color})=> <Image source={{uri : photos}} style={{height:25,width:25}}/>
       }}   />
       <Tab.Screen component={ProfileTagPhotos} name="profiletagphotos" options={{tabBarShowLabel:false,
       tabBarIcon : ({color})=> <Image source={{uri : photos}} style={{height:25,width:25}}/>

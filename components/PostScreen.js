@@ -32,7 +32,7 @@ const PostHeader = (props) => {
        </View>
     )
 }
-const PostData = ({data}) =>{
+const PostData = ({data,navigation}) =>{
      return(
         <View style={{backgroundColor:"black"}}>
           {
@@ -40,7 +40,7 @@ const PostData = ({data}) =>{
                  <View key={index}>
                     <PostHeader key={index} name={value.usersName} img={value.profileImg}/>
                         <Image source={{uri: value.postImg}} style={{height:450,width:"100%"}}/>
-                    <PostBottom bottomdata={Icons} post={value}/>
+                    <PostBottom bottomdata={Icons} post={value} navigation={navigation}/>
                     
                     
                         <PostLike  post={value}/>
@@ -95,7 +95,7 @@ const PostLike = ({post}) =>{
           </View>
          )
 }
-const PostBottom = ({bottomdata,post}) => {
+const PostBottom = ({bottomdata,post,navigation}) => {
     
     const currentLikeStatus = !post.likes_by_users.includes(
       auth().currentUser.email
@@ -131,7 +131,9 @@ const PostBottom = ({bottomdata,post}) => {
              
 
             
-             <Image  source={{uri: bottomdata[1].IconUrl}} style={{height:25,width:25}}/>
+             <TouchableOpacity onPress={() => navigation.navigate("comments",{commentData:post})}>
+                <Image  source={{uri: bottomdata[1].IconUrl}} style={{height:25,width:25}}/>
+             </TouchableOpacity>
              <Image  source={{uri: bottomdata[2].IconUrl}} style={{height:28,width:27}}/>
              
              
